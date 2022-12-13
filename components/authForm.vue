@@ -1,0 +1,137 @@
+<template>
+  <div class="auth-form">
+    <div class="auth-form__logo">
+      <img src="/sib_logo.svg" alt="place for logo" />
+    </div>
+    <h3 class="auth-form__header">
+      Вход
+    </h3>
+    <div class="auth-form__login">
+      <div class="login-input">
+        <div class="login-input__label">
+          Логин
+        </div>
+        <input class="login-input__body">
+      </div>
+    </div>
+    <div class="auth-form__password">
+      <div class="password-input">
+        <div class="password-input__label">
+          Пароль
+        </div>
+        <input class="password-input__body"/>
+        <img class="password-input__hider"
+             src="~/assets/icons/eyeCross.svg"/>
+      </div>
+    </div>
+    <button class="auth-form__login-button">
+      Войти
+    </button>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'authForm'
+}
+</script>
+
+<style scoped>
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 88px 60px 88px;
+  width: 510px;
+  height: 520px;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(39, 39, 39, 0.1);
+  border-radius: 10px;
+}
+.auth-form__header {
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 500;
+  color: #000000;
+  margin-top: 32px;
+  margin-bottom: 20px;
+}
+.auth-form__login {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.login-input__label {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: rgba(23, 23, 25, 0.3);;
+}
+.login-input__body {
+  display: flex;
+  width: 100%;
+  height: 48px;
+  border: 1px solid rgba(23, 23, 25, 0.2);
+  border-radius: 10px;
+  padding: 12px 15px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #272727;
+  transition-duration: 300ms;
+}
+.login-input__body:focus-visible {
+  background-color: rgba(197, 228, 249, 0.3);
+  border-color: #1390E5;;
+}
+.auth-form__password {
+  width: 100%;
+  margin-bottom: 40px;
+  position: relative;
+}
+.password-input__body {
+  display: flex;
+  width: 100%;
+  height: 48px;
+  border: 1px solid rgba(23, 23, 25, 0.2);
+  border-radius: 10px;
+  padding: 12px 15px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #272727;
+  transition-duration: 300ms;
+}
+.password-input__body:focus-visible {
+  background-color: rgba(197, 228, 249, 0.3);
+  border-color: #1390E5;;
+}
+.password-input__label {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: rgba(23, 23, 25, 0.3);;
+}
+.password-input__hider {
+  position: absolute;
+  right: 15px;
+  top: 34px;
+}
+.password-input__hider:hover {
+  cursor: pointer;
+}
+.auth-form__login-button {
+  width: 176px;
+  height: 52px;
+  background-color: #1390E5;
+  border: none;
+  border-radius: 5px;
+  font-weight: 400;
+  font-size: 20px;
+  color: #FFFFFF;
+  line-height: 24px;
+}
+.auth-form__login-button:hover {
+  cursor: pointer;
+}
+</style>
