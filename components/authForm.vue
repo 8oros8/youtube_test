@@ -19,9 +19,21 @@
         <div class="password-input__label">
           Пароль
         </div>
-        <input class="password-input__body"/>
-        <img class="password-input__hider"
-             src="~/assets/icons/eyeCross.svg"/>
+        <input ref="password-input__body"
+               :type="passwordVisible ? 'text' : 'password'"
+               @focus="focusPassword"
+               @blur="blurPassword"
+               class="password-input__body"/>
+        <svg-icon v-if="passwordVisible"
+                  name="eyeOpen"
+                  class="password-input__hider"
+                  @click="passwordVisible=false"
+                  :class="{ active: passwordFocused }"/>
+        <svg-icon v-if="!passwordVisible"
+                  name="eyeCross"
+                  class="password-input__hider"
+                  @click="passwordVisible=true"
+                  :class="{ active: passwordFocused }"/>
       </div>
     </div>
     <button class="auth-form__login-button">
@@ -32,7 +44,22 @@
 
 <script>
 export default {
-  name: 'authForm'
+  name: 'authForm',
+  data () {
+    return {
+      passwordFocused: false,
+      active: false,
+      passwordVisible: false
+    }
+  },
+  methods: {
+    focusPassword () {
+      this.passwordFocused = true
+    },
+    blurPassword () {
+      this.passwordFocused = false
+    }
+  }
 }
 </script>
 
@@ -82,7 +109,8 @@ export default {
 }
 .login-input__body:focus-visible {
   background-color: rgba(197, 228, 249, 0.3);
-  border-color: #1390E5;;
+  border-color: #1390E5;
+  outline: none;
 }
 .auth-form__password {
   width: 100%;
@@ -105,6 +133,7 @@ export default {
 .password-input__body:focus-visible {
   background-color: rgba(197, 228, 249, 0.3);
   border-color: #1390E5;;
+  outline: none;
 }
 .password-input__label {
   font-weight: 400;
@@ -114,8 +143,16 @@ export default {
 }
 .password-input__hider {
   position: absolute;
+  width: 24px;
+  height: 24px;
   right: 15px;
   top: 34px;
+  color: rgba(209, 209, 209, 1);
+  fill: none;
+  transition-duration: 400ms;
+}
+.password-input__hider.active {
+  color: rgba(19, 144, 229, 1);
 }
 .password-input__hider:hover {
   cursor: pointer;
@@ -133,5 +170,15 @@ export default {
 }
 .auth-form__login-button:hover {
   cursor: pointer;
+}
+@media (max-width: 520px) {
+  .auth-form {
+    margin-left: 8px;
+    margin-right: 8px;
+    padding: 40px 10px 60px 10px;
+  }
+  .auth-form__login-button {
+    height: 52px;
+  }
 }
 </style>
