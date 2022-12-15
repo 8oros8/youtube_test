@@ -1,6 +1,7 @@
 <template>
   <div class="default-layout">
-
+    <header-navbar />
+    <Nuxt />
   </div>
 </template>
 
@@ -15,6 +16,5 @@ export default {
   display: block;
   height: 100vh;
   width: 100vw;
-  background-color: red;
 }
 </style>
