@@ -6,10 +6,24 @@
     <div class="search-page__input-wrapper">
       <div class="search-input">
         <input class="search-input__body"
+               tabindex="1"
+               v-model="searchParams.queryString"
+               @keydown.enter="search"
                placeholder="Что хотите посмотреть?"/>
-        <button class="search-input__button">
+        <button @click="search"
+                class="search-input__button">
           Найти
         </button>
+      </div>
+    </div>
+    <div style="width: 100%; background-color: red">
+      <div v-if="displayedVideos"
+           style="width: 300px; height: 300px">
+        <div v-for="video in displayedVideos"
+             :key="video.id.videoId">
+          {{ video.snippet.title }}
+          <iframe :src="video.url"></iframe>
+        </div>
       </div>
     </div>
   </div>
@@ -17,7 +31,31 @@
 
 <script>
 export default {
-  name: 'search'
+  name: 'search',
+  data () {
+    return {
+      searchParams: {
+        apiKey: 'AIzaSyDgFtNbbH6Uc-q4_ErSkEXdLa6Wge4jKtU',
+        queryString: '',
+        type: 'video',
+        part: 'snippet',
+        maxResults: 12
+      },
+      displayedVideos: []
+    }
+  },
+  methods: {
+    search () {
+      this.$store.dispatch('searchVideos', this.searchParams).then((res) => {
+        for (let i = 0; i < res.items.length; i++) {
+          res.items[i].url = `https://www.youtube.com/embed/${res.items[i].id.videoId}`
+        }
+        this.displayedVideos = res.items
+      })
+    }
+  },
+  mounted () {
+  }
 }
 </script>
 
