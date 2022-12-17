@@ -11,7 +11,8 @@
         <div class="login-input__label">
           Логин
         </div>
-        <input class="login-input__body">
+        <input v-model="authData.login"
+               class="login-input__body">
       </div>
     </div>
     <div class="auth-form__password">
@@ -20,6 +21,7 @@
           Пароль
         </div>
         <input ref="password-input__body"
+               v-model="authData.password"
                :type="passwordVisible ? 'text' : 'password'"
                @focus="focusPassword"
                @blur="blurPassword"
@@ -36,7 +38,8 @@
                   :class="{ active: passwordFocused }"/>
       </div>
     </div>
-    <button class="auth-form__login-button">
+    <button @click="authUser"
+            class="auth-form__login-button">
       Войти
     </button>
   </div>
@@ -47,6 +50,10 @@ export default {
   name: 'authForm',
   data () {
     return {
+      authData: {
+        login: '',
+        password: ''
+      },
       passwordFocused: false,
       active: false,
       passwordVisible: false
@@ -58,6 +65,28 @@ export default {
     },
     blurPassword () {
       this.passwordFocused = false
+    },
+    authUser () {
+      this.$store.dispatch('loadAuthData')
+        .then((res) => {
+          console.log('here!', res)
+          const auth = res.find((item) => {
+            if (item.login.toString() === this.authData.login && item.password.toString() === this.authData.password) {
+              localStorage.setItem('token', `${this.authData.login}.${this.authData.password}`)
+              return true
+            } else {
+              return false
+            }
+          })
+          if (auth) {
+            this.$router.push('/search')
+          } else {
+            alert('Неверный логин или пароль')
+          }
+        })
+        .catch((e) => {
+          console.log(e)
+        })
     }
   }
 }

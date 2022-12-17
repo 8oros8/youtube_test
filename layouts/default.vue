@@ -16,5 +16,6 @@ export default {
   display: block;
   height: 100vh;
   width: 100vw;
+  background-color: #fafafa;
 }
 </style>
