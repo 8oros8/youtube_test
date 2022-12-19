@@ -27,13 +27,10 @@ export const mutations = {
 
 export const actions = {
   searchVideos (ctx, searchParams) {
-    const {
-      queryString,
-      type,
-      part,
-      maxResults
-    } = searchParams
-    return this.$axios.$get(`https://www.googleapis.com/youtube/v3/search?key=${ctx.state.apiKey}&q=${queryString}&type=${type}&part=${part}&maxResults=${maxResults}`)
+    const query = searchParams.query ? searchParams.query : ''
+    const order = searchParams.sortBy ? searchParams.sortBy : 'relevance'
+    const maxQuantity = searchParams.maxQuantity ? searchParams.maxQuantity : '12'
+    return this.$axios.$get(`https://www.googleapis.com/youtube/v3/search?key=${ctx.state.apiKey}&q=${query}&type=video&part=snippet&maxResults=${maxQuantity}&order=${order}`)
       .then((res) => {
         ctx.commit('videosLoaded', res) // load initial videos data
         return ctx.dispatch('loadAdditionalVideosInfo', res)
@@ -67,6 +64,9 @@ export const actions = {
       .then((res) => {
         console.log(res)
         return res
+      })
+      .catch((e) => {
+        console.log(e)
       })
   }
 }

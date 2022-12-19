@@ -15,7 +15,8 @@
         Избранное
       </nuxt-link>
     </div>
-    <div class="header-navbar__logout-button">
+    <div @click="logOut"
+         class="header-navbar__logout-button">
       Выйти
     </div>
   </div>
@@ -27,6 +28,12 @@ export default {
   computed: {
     activePage () {
       return this.$route.name
+    }
+  },
+  methods: {
+    logOut () {
+      localStorage.removeItem('token')
+      this.$router.push('/login')
     }
   }
 }

@@ -25,6 +25,7 @@
                :type="passwordVisible ? 'text' : 'password'"
                @focus="focusPassword"
                @blur="blurPassword"
+               @keydown.e.enter="authUser"
                class="password-input__body"/>
         <svg-icon v-if="passwordVisible"
                   name="eyeOpen"
@@ -36,6 +37,10 @@
                   class="password-input__hider"
                   @click="passwordVisible=true"
                   :class="{ active: passwordFocused }"/>
+        <div v-if="authError"
+             class="password-input__error">
+          Неверный логин или пароль
+        </div>
       </div>
     </div>
     <button @click="authUser"
@@ -56,7 +61,8 @@ export default {
       },
       passwordFocused: false,
       active: false,
-      passwordVisible: false
+      passwordVisible: false,
+      authError: false
     }
   },
   methods: {
@@ -79,9 +85,10 @@ export default {
             }
           })
           if (auth) {
+            this.authError = false
             this.$router.push('/search')
           } else {
-            alert('Неверный логин или пароль')
+            this.authError = true
           }
         })
         .catch((e) => {
@@ -168,7 +175,7 @@ export default {
   font-weight: 400;
   font-size: 16px;
   line-height: 22px;
-  color: rgba(23, 23, 25, 0.3);;
+  color: rgba(23, 23, 25, 0.3);
 }
 .password-input__hider {
   position: absolute;
@@ -185,6 +192,15 @@ export default {
 }
 .password-input__hider:hover {
   cursor: pointer;
+}
+.password-input__error {
+  position: absolute;
+  bottom: -20px;
+  display: flex;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 22px;
+  color: darkred;
 }
 .auth-form__login-button {
   width: 176px;

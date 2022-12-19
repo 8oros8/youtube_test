@@ -7,7 +7,7 @@
        target="_blank">
       <div :class="gridActive ? 'video-block__body_grid' : 'video-block__body_list'"
            class="video-block__body"
-           :style="{ backgroundImage: 'url(' + videoData.snippet.thumbnails.high.url + ')' }">
+           :style="{ backgroundImage: 'url(' + videoData.snippet.thumbnails.medium.url + ')' }">
       </div>
     </a>
     <div :class="gridActive ? 'video-block__info-wrapper_grid' : 'video-block__info-wrapper_list'"
@@ -40,7 +40,7 @@ export default {
       if (isNaN(targetViewCount)) {
         return
       }
-      return targetViewCount > 1000000 ? Math.round(targetViewCount / 1000000) + ' млн. просмотров' : targetViewCount > 1000 ? Math.round(targetViewCount / 1000) + ' тыс. просмотров' : targetViewCount
+      return targetViewCount > 1000000 ? Math.round(targetViewCount / 1000000) + ' млн. просмотров' : targetViewCount > 1000 ? Math.round(targetViewCount / 1000) + ' тыс. просмотров' : targetViewCount + ' просмотров'
     }
   }
 }
@@ -106,7 +106,8 @@ export default {
 }
 
 .video-block__body {
-  background-size: contain;
+  background-size: cover;
+  border: 1px solid #1390E5;
 }
 .video-block__body:hover {
   cursor: pointer;

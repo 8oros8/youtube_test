@@ -9,20 +9,37 @@
       <div class="search-input">
         <input class="search-input__body"
                tabindex="1"
-               v-model="searchParams.queryString"
+               v-model="searchParams.query"
                @keydown.enter="search"
                placeholder="Что хотите посмотреть?"/>
+        <svg-icon name="favorite"
+                  @click="openModal"
+                  class="search-input__favorite-button" />
         <button @click="search"
                 class="search-input__button">
           Найти
         </button>
+        <div v-if="saveError"
+             class="search-input__save-error">
+          Пожалуйста, введите запрос, чтобы его сохранить
+        </div>
+        <div v-if="saveSuccessful"
+             class="search-input_save-success save-success">
+          <div class="save-success__text">
+            Поиск сохранён в разделе «Избранное»
+          </div>
+          <div class="save-success__to-favorites"
+               @click="goToFavorites()">
+            Перейти в избранное
+          </div>
+        </div>
       </div>
     </div>
     <div v-if="displayedVideos.length > 0"
          class="search-page__filter-panel">
       <div class="search-info">
         <div class="search-info__query">
-          Видео по запросу  «<b>{{searchParams.queryString}}</b>»
+          Видео по запросу  «<b>{{searchParams.query}}</b>»
         </div>
         <div class="search-info__number">
           {{totalResults}}
@@ -52,6 +69,12 @@
         </video-block>
       </div>
     </div>
+    <search-item-modal v-if="savingProcess"
+                       modal-mode="save"
+                       :searchParams="searchParams"
+                       @save-successful="showSaveSuccessful()"
+                       @close-modal="savingProcess = false">
+    </search-item-modal>
   </div>
 </template>
 
@@ -63,14 +86,17 @@ export default {
   data () {
     return {
       searchParams: {
-        queryString: '',
+        query: '',
         type: 'video',
         part: 'snippet',
         maxResults: 12
       },
       displayedVideos: [],
       totalResults: Number,
-      gridActive: true
+      gridActive: true,
+      savingProcess: false,
+      saveError: false,
+      saveSuccessful: false
     }
   },
   computed: {
@@ -85,15 +111,37 @@ export default {
           this.displayedVideos = res.items
           this.totalResults = res.pageInfo.totalResults
         })
+    },
+    goToFavorites () {
+      this.$router.push('/favorites')
+    },
+    openModal () {
+      if (this.searchParams.query !== '') {
+        this.saveError = false
+        this.savingProcess = true
+      } else {
+        this.saveError = true
+      }
+    },
+    showSaveSuccessful () {
+      this.saveSuccessful = true
+      setTimeout(() => {
+        this.saveSuccessful = false
+      }, 3000)
     }
   },
   mounted () {
+    if (this.$route.query.query) {
+      this.searchParams = this.$route.query
+      this.search()
+    }
   }
 }
 </script>
 
 <style scoped>
 .search-page {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -126,6 +174,7 @@ export default {
 }
 .search-input {
   display: flex;
+  position: relative;
   justify-content: space-between;
   width: 100%;
   height: 52px;
@@ -149,6 +198,19 @@ export default {
   background: rgba(197, 228, 249, 0.3);
   outline: none;
 }
+.search-input__favorite-button {
+  position: absolute;
+  width: 21px;
+  height: 19px;
+  bottom: 16.5px;
+  right: 141px;
+  color: transparent;
+  transition-duration: 300ms;
+}
+.search-input__favorite-button:hover {
+  cursor: pointer;
+  color: rgba(197, 228, 249, 1);
+}
 .search-input__button {
   width: 150px;
   height: 52px;
@@ -161,6 +223,48 @@ export default {
   line-height: 24px;
 }
 .search-input__button:hover {
+  cursor: pointer;
+}
+.search-input__save-error {
+  position: absolute;
+  bottom: -20px;
+  display: flex;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 22px;
+  color: darkred;
+}
+.search-input_save-success {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  bottom: -114px;
+  right: 60px;
+  width: 220px;
+  height: 117px;
+  background: #FFFFFF;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  transition-duration: 300ms;
+}
+.save-success__text {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #272727;
+  opacity: 0.5;
+}
+.save-success {
+  padding: 19px 15px 15px 15px;
+}
+.save-success__to-favorites {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #1390E5;
+}
+.save-success__to-favorites:hover {
   cursor: pointer;
 }
 .search-page__filter-panel {
