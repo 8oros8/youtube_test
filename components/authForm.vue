@@ -1,7 +1,7 @@
 <template>
   <div class="auth-form">
     <div class="auth-form__logo">
-      <img src="/sib_logo.svg" alt="place for logo" />
+      <img src="~/assets/sprite/svg/sib_logo.svg" alt="place for logo" />
     </div>
     <h3 class="auth-form__header">
       Вход

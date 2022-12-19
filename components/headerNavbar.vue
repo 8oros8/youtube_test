@@ -2,7 +2,7 @@
   <div class="header-navbar">
     <div class="header-navbar__left-wrapper">
       <img class="header-navbar__logo"
-           src="/sib_logo.svg"
+           src="~/assets/sprite/svg/sib_logo.svg"
            alt="place for logo" />
       <nuxt-link :class="activePage === 'search' ? 'header-navbar__search-button_active' : ''"
                  class="header-navbar__search-button"

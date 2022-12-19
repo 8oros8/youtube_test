@@ -18,7 +18,7 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/sib_logo.svg' }
+      { rel: 'icon', type: 'image/x-icon', href: '~/assets/sprite/svg/sib_logo.svg' }
     ]
   },
 
