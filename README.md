@@ -1,7 +1,7 @@
 # sibdev_test
 
-## Authentification
-# Please find auth data in store/auth.json
+# Authentification
+## Please find auth data in store/auth.json
 
 ## Build Setup
 
