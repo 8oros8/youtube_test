@@ -120,6 +120,7 @@ export default {
 }
 .favorites-page__no-favorites {
   display: flex;
+  height: auto!important;
   justify-content: center;
   font-weight: 400;
   font-size: 20px;

@@ -217,6 +217,11 @@ export default {
   color: transparent;
   transition-duration: 300ms;
 }
+@media (max-width: 650px) {
+  .search-input__favorite-button {
+    right: 123px;
+  }
+}
 .search-input__favorite-button:hover {
   cursor: pointer;
   color: rgba(197, 228, 249, 1);
