@@ -62,9 +62,6 @@ export default {
   methods: {
     executeSearch (targetItem) {
       this.$router.push({ path: '/search', query: targetItem })
-      //            this.$router.push({ path: `/menu-settings/selling-position/update/${id}`, query: { from: this.$route.path, category: this.$route.query.category, type: this.menuType } });
-      console.log('route', this.$route)
-      console.log('target', targetItem)
     },
     deleteItem (targetItem) {
       let favoriteSearches = []
