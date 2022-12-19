@@ -58,6 +58,17 @@ export default {
   margin-bottom: 20px;
   margin-right: 20px;
 }
+@media (max-width: 1100px) {
+  .video-block_grid {
+    width: 30%;
+  }
+}
+@media (max-width: 650px) {
+  .video-block_grid {
+    width: 100%;
+    height: 218px;
+  }
+}
 .video-block_list {
   width: 100%;
   flex-direction: row;

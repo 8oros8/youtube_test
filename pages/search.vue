@@ -162,12 +162,22 @@ export default {
   margin-bottom: 40px;
   transition-duration: 300ms;
 }
+@media (max-width: 650px) {
+  .search-page__header {
+    font-size: 28px;
+  }
+}
 .search-page__header_found {
   align-self: flex-start;
 }
 .search-page__input-wrapper {
   width: 686px;
   transition-duration: 300ms;
+}
+@media (max-width: 700px) {
+  .search-page__input-wrapper {
+    width: 100%;
+  }
 }
 .search-page__input-wrapper_found {
   width: 100%;
@@ -314,7 +324,7 @@ export default {
   flex-direction: column;
   justify-content: center;
 }
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
   .search-page {
     padding-left: 20px;
     padding-right: 20px;

@@ -54,7 +54,6 @@ export default {
   font-weight: 400;
   line-height: 28px;
 }
-
 .header-navbar__left-wrapper {
   display: flex;
   align-items: center;
@@ -117,7 +116,7 @@ export default {
     padding-left: 40px;
   }
 }
-@media (max-width: 520px) {
+@media (max-width: 650px) {
   .header-navbar {
     padding-right: 19px;
     padding-left: 0;

@@ -122,7 +122,8 @@ export default {
     addToFavorites () {
       this.noName = false
       this.noQuery = false
-      if ((this.modalParams.query !== '') && (this.modalParams.name !== '')) {
+      console.log(this.modalParams.name !== '')
+      if ((this.modalParams.query !== '') && (this.modalParams.name !== '') && (this.modalParams.name !== undefined)) {
         const userToken = localStorage.getItem('token')
         let favoritesArray = []
         if (!localStorage.getItem(`${userToken}`)) {
@@ -135,7 +136,7 @@ export default {
         }
         this.$emit('save-successful')
         this.closeModal()
-      } else if (this.modalParams.name === '') {
+      } else if ((this.modalParams.name === '') || (this.modalParams.name !== '')) {
         this.noName = true
       } else if (this.modalParams.query === '') {
         this.noQuery = true
@@ -222,6 +223,13 @@ export default {
   box-shadow: 0 10px 50px rgba(19, 144, 229, 0.8);
   border-radius: 10px;
   padding: 36px 40px;
+}
+
+@media (max-width: 650px) {
+  .modal-window {
+    width: 90%;
+    padding: 22px 10px 24px 10px;
+  }
 }
 .modal-window__header {
   font-weight: 500;
@@ -362,12 +370,12 @@ export default {
 }
 .modal-window__buttons-wrapper {
   display: flex;
+  width: 100%;
   justify-content: space-between;
 }
 .modal-window__cancel-button {
-  width: 210px;
+  width: 48%;
   height: 52px;
-  margin-right: 10px;
   border-radius: 10px;
   padding: 14px 20px;
   font-weight: 400;
@@ -378,13 +386,25 @@ export default {
   border: 1px solid #1390E5;
   transition-duration: 300ms;
 }
+@media (max-width: 650px) {
+  .modal-window__cancel-button {
+    font-size: 18px;
+    padding: 14px 10px 10px 12px;
+    white-space: nowrap;
+  }
+  .modal-window__save-button {
+    font-size: 18px!important;
+    padding: 14px 10px 10px 12px!important;
+    white-space: nowrap;
+  }
+}
 .modal-window__cancel-button:hover {
   cursor: pointer;
   background-color: #1390E5;
   color: white;
 }
 .modal-window__save-button {
-  width: 210px;
+  width: 48%;
   height: 52px;
   border-radius: 10px;
   padding: 14px 20px;

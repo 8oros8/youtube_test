@@ -3,6 +3,9 @@
     <h1 class="favorites-page__header">
       Избранное
     </h1>
+    <div class="favorites-page__no-favorites favorite-searches__request-item" v-if="favoriteSearches.length === 0">
+      Здесь будут отображаться ваши избранные запросы
+    </div>
     <div class="favorites-page__body favorite-searches">
       <div v-for="search in favoriteSearches"
            :key="search.query"
@@ -96,8 +99,20 @@ export default {
   align-items: flex-start;
   width: 100%;
   padding-top: 40px;
-  padding-right: 40px;
-  padding-left: 40px;
+  padding-right: 200px;
+  padding-left: 200px;
+}
+@media (max-width: 1100px) {
+  .favorites-page {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+@media (max-width: 650px) {
+  .favorites-page {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
 }
 .favorites-page__header {
   margin-bottom: 40px;
@@ -105,6 +120,14 @@ export default {
   font-size: 28px;
   line-height: 40px;
   color: #000000;
+}
+.favorites-page__no-favorites {
+  display: flex;
+  justify-content: center;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 40px;
+  color: rgba(39, 39, 39, 0.3);
 }
 .favorites-page__body {
   width: 100%;
