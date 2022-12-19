@@ -40,6 +40,9 @@
 
 <script>
 export default {
+  head: {
+    title: 'Избранное'
+  },
   name: 'favorites',
   data () {
     return {
@@ -50,7 +53,7 @@ export default {
   },
   computed: {
     favoriteSearches () {
-      console.log(this.refresh)
+      console.log(this.refresh) // trigger for computed recalc
       let favoriteSearches = []
       const userToken = localStorage.getItem('token')
       if (userToken && localStorage.getItem(`${userToken}`)) {
@@ -75,7 +78,6 @@ export default {
       this.refresh++
     },
     openEditModal (targetItem) {
-      console.log('target', targetItem)
       this.editingProcess = true
       this.searchParams = targetItem
     },

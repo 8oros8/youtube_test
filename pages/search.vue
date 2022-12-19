@@ -82,6 +82,9 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  head: {
+    title: 'Поиск'
+  },
   name: 'search',
   data () {
     return {

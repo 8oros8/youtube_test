@@ -75,7 +75,6 @@ export default {
     authUser () {
       this.$store.dispatch('loadAuthData')
         .then((res) => {
-          console.log('here!', res)
           const auth = res.find((item) => {
             if (item.login.toString() === this.authData.login && item.password.toString() === this.authData.password) {
               localStorage.setItem('token', `${this.authData.login}.${this.authData.password}`)

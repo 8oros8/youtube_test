@@ -122,7 +122,6 @@ export default {
     addToFavorites () {
       this.noName = false
       this.noQuery = false
-      console.log(this.modalParams.name !== '')
       if ((this.modalParams.query !== '') && (this.modalParams.name !== '') && (this.modalParams.name !== undefined)) {
         const userToken = localStorage.getItem('token')
         let favoritesArray = []
@@ -159,7 +158,6 @@ export default {
           favoriteSearches = JSON.parse(localStorage.getItem(`${userToken}`))
         }
         const targetId = favoriteSearches.findIndex(item => item.query === this.searchParams.query)
-        console.log('targetID', targetId)
         favoriteSearches.splice(targetId, 1, newItem)
         localStorage.setItem(`${userToken}`, `${JSON.stringify(favoriteSearches)}`)
         this.$emit('edit-successful', this.modalParams)
@@ -174,12 +172,10 @@ export default {
   created () {
     this.noName = false
     this.noQuery = false
-    console.log('this.searchParams', this.searchParams)
     this.modalParams.name = this.searchParams.name
     this.modalParams.query = this.searchParams.query
     this.modalParams.maxQuantity = this.searchParams.maxQuantity ? this.searchParams.maxQuantity : '12'
     this.modalParams.sortBy = this.searchParams.sortBy ? this.searchParams.sortBy : ''
-    console.log('this.modalParams', this.modalParams)
   },
   watch: {
     'modalParams.maxQuantity': {
